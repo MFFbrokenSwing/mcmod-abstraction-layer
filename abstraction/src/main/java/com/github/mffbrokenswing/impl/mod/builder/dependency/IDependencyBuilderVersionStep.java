@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.api.mod;
+package com.github.mffbrokenswing.impl.mod.builder.dependency;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
-public @interface Mod
+public interface IDependencyBuilderVersionStep
 {
+
+    IDependencyBuilderConstraintStep min(String minVersion);
+
+    IDependencyBuilderConstraintStep max(String maxVersion);
+
+    IDependencyBuilderConstraintStep between(String minVersion, String maxVersion);
+
 }

@@ -15,13 +15,16 @@
  */
 package com.github.mffbrokenswing.api.mod;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
-public @interface Mod
+public interface IVersion
 {
+    /** Used to indicate the version isn't specified */
+    IVersion UNSPECIFIED = () -> "UNSPECIFIED";
+
+    /**
+     * Must be numbers dot-separated version. Use 'major.minor.incremental.buildnumber'
+     * Example : 10.25.36 or 1.25.65.456
+     * @return the String representing the version
+     */
+    String getVersionString();
+
 }

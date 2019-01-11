@@ -13,15 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.api.mod;
+package com.github.mffbrokenswing.impl.mod;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.github.mffbrokenswing.api.mod.IVersion;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 
-@Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
-public @interface Mod
+@AllArgsConstructor
+@EqualsAndHashCode
+public class Version implements IVersion
 {
+
+    private String version;
+
+    @Override
+    public String getVersionString()
+    {
+        return this.version;
+    }
+
+    @Override
+    public String toString() {
+        return this.getVersionString();
+    }
+
 }
