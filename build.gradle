@@ -6,6 +6,7 @@ buildscript {
 
 plugins {
     id "com.github.hierynomus.license" version "0.15.0"
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 subprojects {
@@ -13,8 +14,13 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'idea'
     apply plugin: 'com.github.hierynomus.license'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
 
     group 'com.github.mffbrokenswing'
+
+    version = "1.0.0-SNAPSHOT-" + (System.env.TRAVIS ? System.env.TRAVIS_BUILD_NUMBER : "local")
 
     sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
     compileJava.options.encoding = 'UTF-8'
@@ -34,6 +40,11 @@ subprojects {
         from sourceSets.main.allSource
     }
 
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
     license {
         header = file(rootDir.toString() + '/HEADER')
         mapping {
@@ -45,30 +56,54 @@ subprojects {
     }
 
     artifacts {
-        archives sourcesJar
+        archives sourcesJar, javadocJar
     }
 
     classes.dependsOn licenseFormat
+
+    bintray {
+        user = System.env.BINTRAY_USER
+        key = System.env.BINTRAY_KEY
+        publications  = ['Publish']
+        pkg {
+            repo = 'mcmod-abstraction-layer'
+            version {
+                name = project.version
+                desc = 'Library mod for Minecraft modders'
+                released = new Date()
+                vcsTag = project.version
+            }
+        }
+    }
 
 }
 
 project(":abstraction") {
     archivesBaseName = "mcmod-abstraction-layer"
-    version = '1.0.0-SNAPSHOT'
 
     dependencies {
         compileOnly 'org.projectlombok:lombok:1.18.2'
     }
 
+    bintray {
+        pkg {
+            name = 'mcmod-abstraction-layer '
+        }
+    }
+
 }
 
-project(":forge-bindings-1.12") {
-
-    archivesBaseName = "forge-bindings-1.12"
-    version = '1.0.0-SNAPSHOT'
+project(":forge-bindings") {
+    archivesBaseName = "mcmod-abstraction-forge-1.12-bindings"
 
     dependencies {
         api project(":abstraction")
+    }
+
+    bintray {
+        pkg {
+            name = 'mcmod-abstraction-forge-bindings'
+        }
     }
 
 }

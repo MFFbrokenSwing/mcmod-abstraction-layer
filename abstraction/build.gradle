@@ -1,0 +1,45 @@
+def pomConfig = {
+    name 'Abstraction layer for Minecraft mods'
+    packaging 'jar'
+
+    description 'A library providing an abstraction layer for Minecraft mods'
+    url 'https://github.com/MFFbrokenSwing/mcmod-abstraction-layer'
+
+    scm {
+        connection 'scm:git:git://github.com/MFFbrokenSwing/mcmod-abstraction-layer.git'
+        developerConnection 'scm:git:ssh://github.com:MFFbrokenSwing/mcmod-abstraction-layer.git'
+        url 'http://github.com/MFFbrokenSwing/mcmod-abstraction-layer/tree/master'
+    }
+
+    licenses {
+        license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+    }
+
+    developers {
+        developer {
+            id 'mffbrokenswing'
+            name 'Florent HUGOUVIEUX'
+            email 'fhugouvieux@gmail.com'
+        }
+    }
+}
+
+publishing {
+    publications {
+        Publish(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId 'com.github.mffbrokenswing'
+            artifactId 'mcmod-abstraction-layer'
+            version project.version
+            pom.withXml {
+                def root = asNode()
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+minecraft {
+    version = "1.12.2-14.23.5.2768"
+    runDir = "run"
+    mappings = "stable_39"
+}
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'com.github.mffbrokenswing.mcmodabstraction.forgebinding.coremod.BindingCoreMod',
+                   'FMLCorePluginContainsFMLMod': 'false'
+    }
+}
+
+def pomConfig = {
+    name 'Forge bindings for MCMod abstraction layer'
+    packaging 'jar'
+
+    description 'A library providing bindings for Forge 1.12'
+    url 'https://github.com/MFFbrokenSwing/mcmod-abstraction-layer'
+
+    scm {
+        connection 'scm:git:git://github.com/MFFbrokenSwing/mcmod-abstraction-layer.git'
+        developerConnection 'scm:git:ssh://github.com:MFFbrokenSwing/mcmod-abstraction-layer.git'
+        url 'http://github.com/MFFbrokenSwing/mcmod-abstraction-layer/tree/master'
+    }
+
+    licenses {
+        license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+    }
+
+    developers {
+        developer {
+            id 'mffbrokenswing'
+            name 'Florent HUGOUVIEUX'
+            email 'fhugouvieux@gmail.com'
+        }
+    }
+}
+
+publishing {
+    publications {
+        Publish(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId 'com.github.mffbrokenswing'
+            artifactId 'mcmod-abstraction-forge-bindings'
+            version project.version
+            pom.withXml {
+                def root = asNode()
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
