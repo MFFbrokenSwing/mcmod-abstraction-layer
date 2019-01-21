@@ -20,7 +20,7 @@ subprojects {
 
     group 'com.github.mffbrokenswing'
 
-    version = "1.0.0-SNAPSHOT-" + (System.env.TRAVIS ? System.env.TRAVIS_BUILD_NUMBER : "local")
+    version = "0.0.1-" + (System.env.TRAVIS ? System.env.TRAVIS_BUILD_NUMBER : "local")
 
     sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
     compileJava.options.encoding = 'UTF-8'
