@@ -5,7 +5,6 @@ buildscript {
 }
 
 plugins {
-    id "net.ltgt.apt" version "0.20"
     id "com.github.hierynomus.license" version "0.15.0"
 }
 
@@ -13,12 +12,11 @@ subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'idea'
-    apply plugin: "com.github.hierynomus.license"
+    apply plugin: 'com.github.hierynomus.license'
 
     group 'com.github.mffbrokenswing'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
     compileJava.options.encoding = 'UTF-8'
 
     repositories {
@@ -26,7 +24,9 @@ subprojects {
     }
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile 'org.assertj:assertj-core-java8:1.0.0m1'
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.mockito:mockito-core:2.8.47'
     }
 
     license {
@@ -37,15 +37,6 @@ subprojects {
         ext.year = Calendar.getInstance().get(Calendar.YEAR)
         ext.name = 'MFFBrokenSwing'
         strictCheck = true
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    artifacts {
-        archives sourcesJar
     }
 
     classes.dependsOn licenseFormat
@@ -59,23 +50,16 @@ project(":abstraction") {
     dependencies {
         compileOnly 'org.projectlombok:lombok:1.18.2'
     }
+
 }
 
 project(":forge-bindings-1.12") {
+
     archivesBaseName = "forge-bindings-1.12"
     version = '1.0.0-SNAPSHOT'
 
     dependencies {
         api project(":abstraction")
     }
-}
 
-project(":example-mod") {
-    archivesBaseName = "example-mod"
-    version = '1.0.0-SNAPSHOT'
-    
-    dependencies {
-        api project(":abstraction")
-        annotationProcessor project(":forge-bindings-1.12")
-    }
 }

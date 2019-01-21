@@ -22,6 +22,4 @@ public interface IDependencyBuilderConstraintStep
 
     void constraints(EDependencyConstraint... constraints);
 
-    void noConstraints();
-
 }

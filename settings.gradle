@@ -1,4 +1,3 @@
 rootProject.name = 'mcmod-abstraction-layer'
 include 'abstraction'
 include 'forge-bindings-1.12'
-include 'example-mod'

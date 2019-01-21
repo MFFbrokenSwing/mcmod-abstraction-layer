@@ -47,4 +47,10 @@ public interface IMod
      */
     List<IDependency> getDependencies();
 
+    /**
+     * Returns the description for the mod. This one will be readable by the user in mods' GUI.
+     * @return the mod description
+     */
+    String getDescription();
+
 }

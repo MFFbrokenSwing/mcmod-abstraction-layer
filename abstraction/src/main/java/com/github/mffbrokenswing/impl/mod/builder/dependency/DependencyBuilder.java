@@ -74,14 +74,9 @@ public class DependencyBuilder implements IDependencyBuilderVersionStep, IDepend
     public void constraints(EDependencyConstraint ... constraints)
     {
         checkState();
+        if(constraints.length == 0)
+            throw new IllegalArgumentException("You must specify at least 1 constraint !");
         Collections.addAll(this.constraints, constraints);
-        this.submit();
-    }
-
-    @Override
-    public void noConstraints()
-    {
-        checkState();
         this.submit();
     }
 
