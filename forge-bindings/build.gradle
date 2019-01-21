@@ -39,40 +39,34 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
 
-            pom.withXml {
-                def root = asNode()
-                root.children().last() + pomConfig
-            }
-
             pom {
-                name 'Forge bindings for MCMod abstraction layer'
-                packaging 'jar'
+                name = 'Forge bindings for MCMod abstraction layer'
+                packaging = 'jar'
 
-                description 'A library providing bindings for Forge 1.12'
-                url 'https://github.com/MFFbrokenSwing/mcmod-abstraction-layer'
+                description = 'A library providing bindings for Forge 1.12'
+                url = 'https://github.com/MFFbrokenSwing/mcmod-abstraction-layer'
 
                 scm {
-                    connection 'scm:git:git://github.com/MFFbrokenSwing/mcmod-abstraction-layer.git'
-                    developerConnection 'scm:git:ssh://github.com:MFFbrokenSwing/mcmod-abstraction-layer.git'
-                    url 'http://github.com/MFFbrokenSwing/mcmod-abstraction-layer/tree/master'
+                    connection = 'scm:git:git://github.com/MFFbrokenSwing/mcmod-abstraction-layer.git'
+                    developerConnection = 'scm:git:ssh://github.com:MFFbrokenSwing/mcmod-abstraction-layer.git'
+                    url = 'http://github.com/MFFbrokenSwing/mcmod-abstraction-layer/tree/master'
                 }
 
                 licenses {
                     license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
 
                 developers {
                     developer {
-                        id 'mffbrokenswing'
-                        name 'Florent HUGOUVIEUX'
-                        email 'fhugouvieux@gmail.com'
+                        id = 'mffbrokenswing'
+                        name = 'Florent HUGOUVIEUX'
+                        email = 'fhugouvieux@gmail.com'
                     }
                 }
             }
-
         }
     }
 }
