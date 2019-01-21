@@ -20,9 +20,9 @@ group: stable
 dist: precise
 jdk: oraclejdk8
 os: linux
-#deploy:
-#  provider: script
-#  script: ./gradlew bintrayUpload
-#  on:
-#    branch: master
-#skip_cleanup: true
+deploy:
+  provider: script
+  script: ./gradlew bintrayUpload
+  on:
+    branch: master
+skip_cleanup: true

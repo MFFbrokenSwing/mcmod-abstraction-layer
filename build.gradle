@@ -87,7 +87,7 @@ project(":abstraction") {
 
     bintray {
         pkg {
-            name = 'mcmod-abstraction-layer '
+            name = 'mcmod-abstraction-layer'
         }
     }
 
