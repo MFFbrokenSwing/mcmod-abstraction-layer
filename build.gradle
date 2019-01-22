@@ -80,11 +80,9 @@ allprojects {
     }
 }
 
-project(":") {
-    publishing {
-        publications {
-            
-        }
+publishing {
+    publications {
+        // Cancels root project from trying to publish
     }
 }
 
