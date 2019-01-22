@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.impl.mod;
+package com.github.mffbrokenswing.mcmodabstraction.impl.mod;
 
-import com.github.mffbrokenswing.api.mod.EDependencyConstraint;
-import com.github.mffbrokenswing.api.mod.IDependency;
-import com.github.mffbrokenswing.api.mod.IVersion;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.EDependencyConstraint;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IDependency;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IVersion;
 import lombok.AllArgsConstructor;
 
 import java.util.Set;

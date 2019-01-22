@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.impl.mod;
+package com.github.mffbrokenswing.mcmodabstraction.impl.mod;
 
-import com.github.mffbrokenswing.api.mod.IDependency;
-import com.github.mffbrokenswing.api.mod.IMod;
-import com.github.mffbrokenswing.api.mod.IVersion;
-import com.github.mffbrokenswing.impl.mod.builder.dependency.DependencyBuilder;
-import com.github.mffbrokenswing.impl.mod.builder.dependency.IDependencyBuilderVersionStep;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IDependency;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IMod;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IVersion;
+import com.github.mffbrokenswing.mcmodabstraction.impl.mod.builder.dependency.DependencyBuilder;
+import com.github.mffbrokenswing.mcmodabstraction.impl.mod.builder.dependency.IDependencyBuilderVersionStep;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
 public abstract class AbstractMod implements IMod
@@ -42,7 +41,7 @@ public abstract class AbstractMod implements IMod
                 "Mod ID '%s' must be a lowercased spaceless non empty string"
         );
         this.name = check(name, n -> !n.isEmpty(), "The mod name must not be empty.");
-        this.version = new Version(check(version, v -> !v.isEmpty(), "The version must not be empty."));
+        this.version = new Version(version);
 
         this.dependencies = new ArrayList<>();
     }

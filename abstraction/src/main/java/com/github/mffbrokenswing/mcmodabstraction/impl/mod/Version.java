@@ -13,18 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.impl.mod;
+package com.github.mffbrokenswing.mcmodabstraction.impl.mod;
 
-import com.github.mffbrokenswing.api.mod.IVersion;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IVersion;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
-@AllArgsConstructor
+import java.util.Objects;
+
 @EqualsAndHashCode
 public class Version implements IVersion
 {
 
     private String version;
+
+    public Version(String version)
+    {
+        Objects.requireNonNull(version, "The provided version musn't be null");
+        if(version.isEmpty())
+            throw new IllegalArgumentException("The provided version musn't be empty");
+
+        this.version = version;
+    }
 
     @Override
     public String getVersionString()

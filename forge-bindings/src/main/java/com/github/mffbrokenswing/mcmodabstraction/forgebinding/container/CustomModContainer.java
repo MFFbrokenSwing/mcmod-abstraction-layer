@@ -15,10 +15,10 @@
  */
 package com.github.mffbrokenswing.mcmodabstraction.forgebinding.container;
 
-import com.github.mffbrokenswing.api.mod.EDependencyConstraint;
-import com.github.mffbrokenswing.api.mod.IDependency;
-import com.github.mffbrokenswing.api.mod.IMod;
-import com.github.mffbrokenswing.api.mod.IVersion;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.EDependencyConstraint;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IDependency;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IMod;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IVersion;
 import com.google.common.base.Joiner;
 import com.google.common.eventbus.EventBus;
 import net.minecraftforge.fml.common.*;

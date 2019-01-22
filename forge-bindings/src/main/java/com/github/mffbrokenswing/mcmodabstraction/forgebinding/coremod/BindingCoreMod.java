@@ -15,7 +15,7 @@
  */
 package com.github.mffbrokenswing.mcmodabstraction.forgebinding.coremod;
 
-import com.github.mffbrokenswing.api.mod.Mod;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.Mod;
 import com.github.mffbrokenswing.mcmodabstraction.forgebinding.container.CustomModContainer;
 import net.minecraftforge.fml.common.ModContainerFactory;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
