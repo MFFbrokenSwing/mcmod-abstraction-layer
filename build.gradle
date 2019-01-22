@@ -83,6 +83,11 @@ allprojects {
 publishing {
     publications {
         // Cancels root project from trying to publish
+        Publish(MavenPublication) {
+            groupId 'com.github.mffbrokenswing'
+            artifactId 'mcmod-abstraction-layer-root'
+            version "0.0.0"
+        }
     }
 }
 
