@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.impl.mod.builder.dependency;
+package com.github.mffbrokenswing.mcmodabstraction.impl.mod.builder.dependency;
 
-import com.github.mffbrokenswing.api.mod.EDependencyConstraint;
-import com.github.mffbrokenswing.api.mod.IDependency;
-import com.github.mffbrokenswing.api.mod.IVersion;
-import com.github.mffbrokenswing.impl.mod.Dependency;
-import com.github.mffbrokenswing.impl.mod.Version;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.EDependencyConstraint;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IDependency;
+import com.github.mffbrokenswing.mcmodabstraction.api.mod.IVersion;
+import com.github.mffbrokenswing.mcmodabstraction.impl.mod.Dependency;
+import com.github.mffbrokenswing.mcmodabstraction.impl.mod.Version;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DependencyBuilder implements IDependencyBuilderVersionStep, IDependencyBuilderConstraintStep
 {
@@ -38,6 +35,9 @@ public class DependencyBuilder implements IDependencyBuilderVersionStep, IDepend
 
     public DependencyBuilder(String id, List<IDependency> dependencies)
     {
+        Objects.requireNonNull(id, "A dependency mod ID can't be null.");
+        if(id.isEmpty())
+            throw new IllegalArgumentException("A dependency mod ID can't be empty.");
         this.id = id;
         this.minimalVersion = IVersion.UNSPECIFIED;
         this.maximalVersion = IVersion.UNSPECIFIED;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mffbrokenswing.impl.mod.builder.dependency;
+package com.github.mffbrokenswing.mcmodabstraction.impl.mod.builder.dependency;
 
 public interface IDependencyBuilderVersionStep
 {
