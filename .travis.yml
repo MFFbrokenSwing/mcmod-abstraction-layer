@@ -5,6 +5,9 @@ install:
 - "./gradlew setupCIWorkspace -S"
 script:
 - "./gradlew build -S"
+- "./gradlew codeCoverageReport"
+after_sucess:
+- "bash <(curl -s https://codecov.io/bash)"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -f $HOME/.gradle/caches/minecraft/ForgeVersion.json
