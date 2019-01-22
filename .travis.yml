@@ -22,7 +22,7 @@ jdk: oraclejdk8
 os: linux
 deploy:
   provider: script
-  script: ./gradlew bintrayUpload
+  script: ./gradlew :abstraction:bintrayUpload :forge-bindings:bintrayUpload
   on:
     branch: master
   skip_cleanup: true

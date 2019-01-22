@@ -15,6 +15,10 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'com.github.hierynomus.license'
 
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
+
     group 'com.github.mffbrokenswing'
 
     version = "0.0.1-" + (System.env.TRAVIS ? System.env.TRAVIS_BUILD_NUMBER : "local")
@@ -56,14 +60,6 @@ subprojects {
         archives sourcesJar, javadocJar
     }
 
-    classes.dependsOn licenseFormat
-}
-
-allprojects {
-    apply plugin: 'maven'
-    apply plugin: 'maven-publish'
-    apply plugin: 'com.jfrog.bintray'
-
     bintray {
         user = System.env.BINTRAY_USER
         key = System.env.BINTRAY_KEY
@@ -78,17 +74,8 @@ allprojects {
             }
         }
     }
-}
 
-publishing {
-    publications {
-        // Cancels root project from trying to publish
-        Publish(MavenPublication) {
-            groupId 'com.github.mffbrokenswing'
-            artifactId 'mcmod-abstraction-layer-root'
-            version "0.0.0"
-        }
-    }
+    classes.dependsOn licenseFormat
 }
 
 project(":abstraction") {
