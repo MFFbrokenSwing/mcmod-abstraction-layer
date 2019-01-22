@@ -11,6 +11,12 @@ plugins {
 
 allprojects {
     apply plugin: 'jacoco'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "http://repo1.maven.org/maven2/" }
+    }
 }
 
 subprojects {
@@ -29,10 +35,6 @@ subprojects {
 
     sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
     compileJava.options.encoding = 'UTF-8'
-
-    repositories {
-        mavenCentral()
-    }
 
     dependencies {
         testCompile 'org.assertj:assertj-core-java8:1.0.0m1'
