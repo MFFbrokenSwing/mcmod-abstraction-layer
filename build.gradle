@@ -60,7 +60,9 @@ subprojects {
     }
 
     classes.dependsOn licenseFormat
+}
 
+allprojects {
     bintray {
         user = System.env.BINTRAY_USER
         key = System.env.BINTRAY_KEY
@@ -75,7 +77,6 @@ subprojects {
             }
         }
     }
-
 }
 
 project(":abstraction") {
