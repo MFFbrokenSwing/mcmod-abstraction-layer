@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DependencyParser;
 import net.minecraftforge.fml.common.versioning.VersionRange;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.FormattedMessage;
@@ -60,9 +61,15 @@ public class CustomModContainer implements ModContainer
         this.metadata = new ModMetadata();
         this.enabled = true;
 
-        this.loadModClass(className);
-        this.populateMetadata();
+        this.mod = this.loadModClass(className);
+        CustomModContainer.populateMetadata(this.metadata, this.mod, FMLCommonHandler.instance().getSide());
+    }
 
+    public CustomModContainer(IMod mod) // For tests
+    {
+        this.mod = mod;
+        this.metadata = new ModMetadata();
+        this.enabled = true;
     }
 
     @Override
@@ -128,7 +135,7 @@ public class CustomModContainer implements ModContainer
     @Override
     public String getSortingRules()
     {
-        return this.getDependencyString();
+        return CustomModContainer.getDependencyString(this.mod.getDependencies());
     }
 
     // Taken from FMLModContainer
@@ -263,7 +270,7 @@ public class CustomModContainer implements ModContainer
         return this.classVersion;
     }
 
-    private void loadModClass(String className)
+    public IMod loadModClass(String className)
     {
         Class<?> discoveredClass;
 
@@ -289,7 +296,7 @@ public class CustomModContainer implements ModContainer
 
         try
         {
-            this.mod = (IMod) discoveredClass.newInstance();
+            return (IMod) discoveredClass.newInstance();
         }
         catch (InstantiationException | IllegalAccessException e)
         {
@@ -300,14 +307,14 @@ public class CustomModContainer implements ModContainer
         }
     }
 
-    private String getDependencyString()
+    public static String getDependencyString(List<IDependency> dependencies)
     {
-        return this.mod.getDependencies().stream()
-                .map(this::getDependencyString)
+        return dependencies.stream()
+                .map(CustomModContainer::getDependencyString)
                 .reduce(String::concat).orElse("");
     }
 
-    private String getConstraintStringFromEnum(EDependencyConstraint c)
+    public static String getConstraintStringFromEnum(EDependencyConstraint c)
     {
         switch(c)
         {
@@ -316,11 +323,11 @@ public class CustomModContainer implements ModContainer
             case ON_CLIENT: return "client";
             case ON_SERVER: return "server";
             case LOAD_BEFORE: return "before";
-            default: return "";
         }
+        throw new IllegalArgumentException("Provided constraint doesn't exist or isn't handled.");
     }
 
-    private String getDependencyString(IDependency dependency)
+    public static String getDependencyString(IDependency dependency)
     {
         StringBuilder builder = new StringBuilder();
 
@@ -328,7 +335,7 @@ public class CustomModContainer implements ModContainer
         Joiner.on('-').appendTo(builder,
                 dependency.getLoadingConstraints()
                         .stream()
-                        .map(this::getConstraintStringFromEnum)
+                        .map(CustomModContainer::getConstraintStringFromEnum)
                         .collect(Collectors.toSet())
         );
 
@@ -342,7 +349,7 @@ public class CustomModContainer implements ModContainer
         }
         else
         {
-            builder.append("[").append(dependency.getMinimalVersion());
+            builder.append("[").append(dependency.getMinimalVersion().getVersionString());
         }
 
         // Maximal version
@@ -352,7 +359,7 @@ public class CustomModContainer implements ModContainer
         }
         else
         {
-            builder.append(',').append(dependency.getMaximalVersion()).append(']');
+            builder.append(',').append(dependency.getMaximalVersion().getVersionString()).append(']');
         }
 
         // Close declaration
@@ -361,14 +368,14 @@ public class CustomModContainer implements ModContainer
         return builder.toString();
     }
 
-    private void populateMetadata()
+    public static void populateMetadata(ModMetadata metadata, IMod mod, Side side)
     {
-        DependencyParser parser = new DependencyParser(getModId(), FMLCommonHandler.instance().getSide());
-        DependencyParser.DependencyInfo info = parser.parseDependencies(this.getDependencyString());
-        this.metadata.requiredMods = info.requirements;
-        this.metadata.dependencies = info.dependencies;
-        this.metadata.dependants = info.dependants;
+        DependencyParser parser = new DependencyParser(mod.getId(), side);
+        DependencyParser.DependencyInfo info = parser.parseDependencies(CustomModContainer.getDependencyString(mod.getDependencies()));
+        metadata.requiredMods = info.requirements;
+        metadata.dependencies = info.dependencies;
+        metadata.dependants = info.dependants;
 
-        this.metadata.description = this.mod.getDescription();
+        metadata.description = mod.getDescription();
     }
 }

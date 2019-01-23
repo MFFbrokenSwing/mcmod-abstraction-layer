@@ -49,9 +49,9 @@ public class DependencyTest
         );
 
         assertThat(dep.getId()).isEqualTo(depId);
-        assertThat(dep.getMinimalVersion() == minVersion);
-        assertThat(dep.getMaximalVersion() == maxVersion);
-        assertThat(dep.getLoadingConstraints() == constraints);
+        assertThat(dep.getMinimalVersion() == minVersion).isTrue();
+        assertThat(dep.getMaximalVersion() == maxVersion).isTrue();
+        assertThat(dep.getLoadingConstraints() == constraints).isTrue();
     }
 
 }

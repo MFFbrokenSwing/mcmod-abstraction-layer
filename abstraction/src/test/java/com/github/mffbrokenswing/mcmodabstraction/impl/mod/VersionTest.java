@@ -49,4 +49,25 @@ public class VersionTest
         new Version("");
     }
 
+    @Test
+    public void equalsAndHashTest()
+    {
+        IVersion v1 = new Version("1.0.0");
+        IVersion v2 = new Version("1.0.1");
+        IVersion v3 = new Version("1.0.1");
+
+        assertThat(v1).isNotEqualTo(v2);
+        assertThat(v1).isNotEqualTo(v3);
+        assertThat(v1).isNotEqualTo(IVersion.UNSPECIFIED);
+
+        assertThat(v2).isEqualTo(v3);
+        assertThat(v2).isNotEqualTo(IVersion.UNSPECIFIED);
+
+        assertThat(v3).isNotEqualTo(IVersion.UNSPECIFIED);
+
+        assertThat(IVersion.UNSPECIFIED).isEqualTo(IVersion.UNSPECIFIED);
+
+        assertThat(v2.hashCode()).isEqualTo(v3.hashCode());
+    }
+
 }
